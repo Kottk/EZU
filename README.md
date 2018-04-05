@@ -1,2 +1,8 @@
 # ECU_Project
-CIS 111B
+
+Version .01
+---------------------------
+
+*Established communication with virual ports
+*Exploring new libraries
+*Building Heirarchies for final Project
