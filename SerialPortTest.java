@@ -1,5 +1,6 @@
 import jssc.*;
 // TEST WITH VIRTUAL PORT
+//BROKEN ON WINDOWS 10 TESTING WINDOWS 7
 public class SerialPortTest
 {
     public static void main(String[] args) throws SerialPortException
