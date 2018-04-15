@@ -10,36 +10,19 @@ public class FazeCastTest {
         comPort.setComPortParameters(4800,8,1,0);
         comPortL.setComPortParameters(4800,8,1,0);
         comPort.openPort();
-        comPortL.openPort();
+        comPort.writeBytes(message, message.length);
 
-        comPort.addDataListener(new SerialPortDataListener() {
-            @Override
-            public int getListeningEvents() { return SerialPort.LISTENING_EVENT_DATA_WRITTEN; }
-            @Override
-            public void serialEvent(SerialPortEvent event)
+        try {
+            while (true)
             {
-                if (event.getEventType() == SerialPort.LISTENING_EVENT_DATA_WRITTEN)
-                    System.out.println("All bytes were successfully transmitted!");
-            }
-        });
+                while (comPort.bytesAvailable() == 0)
+                    Thread.sleep(20);
 
-        comPortL.addDataListener(new SerialPortDataListener() {
-            @Override
-            public int getListeningEvents() { return SerialPort.LISTENING_EVENT_DATA_AVAILABLE; }
-            @Override
-            public void serialEvent(SerialPortEvent event)
-            {
-                if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
-                    return;
-                byte[] newData = new byte[comPortL.bytesAvailable()];
-                int numRead = comPortL.readBytes(newData, newData.length);
+                byte[] readBuffer = new byte[comPort.bytesAvailable()];
+                int numRead = comPort.readBytes(readBuffer, readBuffer.length);
                 System.out.println("Read " + numRead + " bytes.");
             }
-        });
-
-        //comPortL.readBytes();
-        comPort.writeBytes(message, message.length);
-        comPortL.closePort();
+        } catch (Exception e) { e.printStackTrace(); }
         comPort.closePort();
     }
 }
