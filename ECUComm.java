@@ -1,5 +1,4 @@
 import com.fazecast.jSerialComm.*;
-
 /**
  *  This class creates an object that enables communication with an ECU utilizing the Fazecast jSerialComm
  *  package.
@@ -44,7 +43,7 @@ public class ECUComm
          sum = (byte)(sum + b);
 
         }
-        byte[] check = {(byte)(sum & 0xFF)};
+        byte[] check = {(byte)((byte)sum & 0xFF)};
 
 
         return check;
@@ -57,19 +56,27 @@ public class ECUComm
      */
     public void Write(byte[] message)
     {
-        byte[] writeMess = new byte[3+message.length];
-        byte[] req = {(byte)0x80, 0x10};
+        byte[] writeMess = new byte[4 + message.length];
 
-        System.arraycopy(req,0,writeMess,0,2);
-        System.arraycopy(message,0,writeMess,2,message.length);
-        System.arraycopy(CheckSum(writeMess),0,writeMess,2+message.length,1);
+        writeMess[0] = ((byte)0x80);
+        writeMess[1] = ((byte)0x10);
+        writeMess[2] = ((byte)0xF0);
+            
+         for(int i = 0; i < message.length;i++)
+        {
+         writeMess[3+i] = message[i];
+       
+        }
+         writeMess[writeMess.length-1] = CheckSum(writeMess)[0];
+         System.out.println();
+         
 
         int i = commPort.writeBytes(writeMess, writeMess.length);
         System.out.println(i);
         //Closing port for testing purposes
 
-        commPort.closePort();
-       Listen();
+        //commPort.closePort();
+        Listen();
 
     }
 
@@ -87,14 +94,20 @@ public class ECUComm
             {
 
                 while (commPort.bytesAvailable() == 0)
-                    Thread.sleep(10);
+                    Thread.sleep(20);
 
                 byte[] readBuffer = new byte[commPort.bytesAvailable()];
                 int numRead = commPort.readBytes(readBuffer, readBuffer.length);
                 System.out.println("Read " + numRead + " bytes.");
+                for(byte b:readBuffer)
+                {
+                System.out.print(b + " ");
+                }
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
+            commPort.closePort();
             System.out.println("NO RESPONSE");
         }
     }
