@@ -40,7 +40,7 @@ public class ECUComm
 
         for(byte b: message)
         {
-         sum = (byte)(sum + b);
+            sum = (byte)(sum + b);
 
         }
         byte[] check = {(byte)((byte)sum & 0xFF)};
@@ -61,15 +61,15 @@ public class ECUComm
         writeMess[0] = ((byte)0x80);
         writeMess[1] = ((byte)0x10);
         writeMess[2] = ((byte)0xF0);
-            
-         for(int i = 0; i < message.length;i++)
+
+        for(int i = 0; i < message.length;i++)
         {
-         writeMess[3+i] = message[i];
-       
+            writeMess[3+i] = message[i];
+
         }
-         writeMess[writeMess.length-1] = CheckSum(writeMess)[0];
-         System.out.println();
-         
+        writeMess[writeMess.length-1] = CheckSum(writeMess)[0];
+        System.out.println();
+
 
         int i = commPort.writeBytes(writeMess, writeMess.length);
         System.out.println(i);
@@ -81,35 +81,33 @@ public class ECUComm
     }
 
 
-
-    ///////////////////////////////////////////////////////////////////////////
-    //                    HEAVY CODE CONSTRUCTION.                           //
-    ///////////////////////////////////////////////////////////////////////////
-
-    // Only access when something is written
+    /**
+     *  Listen method built by Sean Kirwan.
+     *
+     */
     private void Listen()
     {
-        try {
-            while (true)
-            {
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
 
+        try {
+            while (true) {
                 while (commPort.bytesAvailable() == 0)
                     Thread.sleep(20);
 
                 byte[] readBuffer = new byte[commPort.bytesAvailable()];
+
                 int numRead = commPort.readBytes(readBuffer, readBuffer.length);
+
                 System.out.println("Read " + numRead + " bytes.");
-                for(byte b:readBuffer)
-                {
-                System.out.print(b + " ");
+
+                for (byte b : readBuffer) {
+                    sb2.append(String.format("%02X ", b));
                 }
-                
+                System.out.println(sb2.substring(sb1.length(), sb2.length()).toString());
             }
         } catch (Exception e) {
             e.printStackTrace();
-            commPort.closePort();
-            System.out.println("NO RESPONSE");
         }
     }
-
 }
