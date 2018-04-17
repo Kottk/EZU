@@ -1,13 +1,8 @@
 # EZU
 CIS 111B
 
-Current status:
+To Do:
 
-We have managed to set up Serial Communication Ports and communicated through them
+Build heirarchy.
 
-We have established connection with the ECU
-
-TO DO
-
-Communicate without using established software
-Build Java framework
+Build demo program.
