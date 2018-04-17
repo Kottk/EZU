@@ -109,5 +109,6 @@ public class ECUComm
         } catch (Exception e) {
             e.printStackTrace();
         }
+        commPort.closePort();
     }
 }
