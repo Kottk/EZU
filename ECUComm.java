@@ -34,7 +34,7 @@ public class ECUComm
         System.out.println("ECUComm Created");
     }
 
-    public byte[] CheckSum(byte[] message)
+    public byte[] checkSum(byte[] message)
     {
         byte sum = 0;
 
@@ -54,7 +54,7 @@ public class ECUComm
      *
      * @param message User specified message
      */
-    public void Write(byte[] message)
+    public void write(byte[] message)
     {
         byte[] writeMess = new byte[4 + message.length];
 
@@ -67,7 +67,7 @@ public class ECUComm
             writeMess[3+i] = message[i];
 
         }
-        writeMess[writeMess.length-1] = CheckSum(writeMess)[0];
+        writeMess[writeMess.length-1] = checkSum(writeMess)[0];
         System.out.println();
 
 
@@ -76,7 +76,7 @@ public class ECUComm
         //Closing port for testing purposes
 
         //commPort.closePort();
-        Listen();
+        listen();
 
     }
 
@@ -85,10 +85,13 @@ public class ECUComm
      *  Listen method built by Sean Kirwan.
      *
      */
-    private void Listen()
+    private void listen()
     {
         StringBuilder sb1 = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
+
+
+
 
         try {
             while (true) {
@@ -109,6 +112,5 @@ public class ECUComm
         } catch (Exception e) {
             e.printStackTrace();
         }
-        commPort.closePort();
     }
 }
