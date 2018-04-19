@@ -1,5 +1,5 @@
 
-public abstract class ECUController
+public abstract class ECU
 {
     boolean isConnected = false;
     int dataBytes;
