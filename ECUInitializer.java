@@ -6,17 +6,34 @@ import java.util.*;
  */
 public class ECUInitializer
 {
-    ArrayList<ECU> sensorList;
 
+    Map<String,ECUSensor> map = new HashMap<>(10,(float).75);
+
+    /**
+     * Default constructor
+     */
     public ECUInitializer()
     {
 
-        sensorList = new ArrayList<ECU>(0);
+        System.out.println("ECU Map Initialized...");
 
     }
 
-    public void build()
+    /**
+     * All sensors connected to the ECU
+     *
+     * @return
+     */
+    public String[] listAddresses()
     {
-        sensorList.add(new EngineSpeed());
+
+        String[] addresses = (String[])map.keySet().toArray(new String[0]);
+
+        return addresses;
+    }
+
+    public void addToMap(ECUSensor e)
+    {
+        this.map.put(e.getAddress(),e);
     }
 }
