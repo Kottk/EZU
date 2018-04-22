@@ -1,20 +1,27 @@
 /**
- *  Sensor that measures Engine speed. Initializes RPM to -1.
+ *  Type of sensor that measures Engine speed. Initializes RPM to -1.
  *
  * @author Anthony Kottke
  */
-public class EngineSpeed extends ECU
+public class EngineSpeed extends ECUSensor
 {
-    public int rpm = -1;
+    public Integer rpm = -1;
+    public final String KEY = "ES";
+
+    @Override
+    public void addToMap(ECUInitializer eI)
+    {
+       eI.map.put("1",this);
+    }
 
     /**
      * Constructor should only be called with ECUInitializer Class.
      */
-    public EngineSpeed()
+    public EngineSpeed(ECUInitializer eI)
     {
-        super.isConnected = true;
-        super.dataBytes = 2;
+        addToMap(eI);
     }
+
 
     /**
      *  Builds and returns a message that can be used to communicate with the ECU.
@@ -25,37 +32,39 @@ public class EngineSpeed extends ECU
      *         0x80, and checksum bytes.
      */
     @Override
-    public byte[] query(byte[] mess)
+    public byte[] write(byte[] mess)
     {
-        byte[] writeMess = new byte[4 + mess.length];
-
-        writeMess[0] = ((byte)0x80);
-        writeMess[1] = ((byte)0x10);
-        writeMess[2] = ((byte)0xF0);
-
-        for(int i = 0; i < mess.length;i++)
-        {
-            writeMess[3+i] = mess[i];
-
-        }
-
-        writeMess[writeMess.length-1] = super.checkSum(writeMess)[0];
-
-        return writeMess;
+        return super.write(mess);
     }
 
+    @Override
+    public String report() {
+        return rpm.toString();
+    }
+
+    /**
+     * All sensors are created and placed into a HashMap, accessible only through the ECUInitializer. Keys are String
+     * objects unique to all sensors.
+     *
+     * @return String key used to access correct object in ECUInitializer map
+     */
+    @Override
+    public String getAddress()
+    {
+        return KEY;
+    }
 
     /**
      *  This method interprets the response received from the ECU.
      *
      * @param resp The full response from the ECU
      * */
-    @Override
+
     public void response(byte[] resp)
     {
         //Java reads bytes into integers without the 2's compliment rule, bitwise & function fixes
-       int prod = (resp[resp.length-2]&0xff) * (resp[resp.length - 3]&0xff) ;
-       rpm=  prod/4;
-       System.out.println(rpm);
+        int prod = (resp[resp.length-2]&0xff) * (resp[resp.length - 3]&0xff) ;
+        rpm =  prod/4;
+
     }
 }
