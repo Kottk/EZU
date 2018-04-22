@@ -6,11 +6,11 @@ public class Driver
     {
         ECUInitializer testE = new ECUInitializer();
 
-        testE.addToMap(new EngineSpeed(testE));
-        testE.addToMap(new VehicleSpeed(testE));
+              
 
         for(String s: testE.listAddresses())
         {
+
             System.out.println(s);
         }
 
