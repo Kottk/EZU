@@ -1,5 +1,5 @@
 /**
- *  Type of sensor that measures Engine speed. Initializes RPM to -1.
+ *  Type of sensor that measures Engine speed. Initializes RPM to -1. Key address for ECUInitializer HashMap is "ES".
  *
  * @author Anthony Kottke
  */
@@ -8,6 +8,11 @@ public class EngineSpeed extends ECUSensor
     public Integer rpm = -1;
     public final String KEY = "ES";
 
+    /**
+     * Called by EngineSpeed constructor, adds this new object to the ECUInitializer's HashMap.
+     *
+     * @param eI Reference to an ECUInitializer Object
+     */
     @Override
     public void addToMap(ECUInitializer eI)
     {
@@ -15,7 +20,7 @@ public class EngineSpeed extends ECUSensor
     }
 
     /**
-     * Constructor should only be called with ECUInitializer Class.
+     * Constructor should only be called with ECUInitializer Class, calls the addToMap method.
      */
     public EngineSpeed(ECUInitializer eI)
     {
@@ -37,6 +42,11 @@ public class EngineSpeed extends ECUSensor
         return super.write(mess);
     }
 
+    /**
+     * Getter method for the rpm field
+     *
+     * @return  Measured engine speed in rpm, initially -1 range(0-16,384).
+     */
     @Override
     public String report() {
         return rpm.toString();
@@ -55,7 +65,7 @@ public class EngineSpeed extends ECUSensor
     }
 
     /**
-     *  This method interprets the response received from the ECU.
+     *  This method interprets the response received from the ECU and sets rpm field.
      *
      * @param resp The full response from the ECU
      * */
