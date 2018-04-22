@@ -18,6 +18,11 @@ public abstract class ECUSensor
      */
     public abstract void addToMap(ECUInitializer eI);
 
+    /**
+     * Generic getter method
+     *
+     * @return  Value the sensor is responsible for monitoring (ie. rpm for EngineSpeed).
+     */
     public abstract String report();
 
     /**
