@@ -1,0 +1,19 @@
+import java.util.AbstractSet;
+
+public class Driver
+{
+    public static void main(String[] args)
+    {
+        ECUInitializer testE = new ECUInitializer();
+
+        testE.addToMap(new EngineSpeed(testE));
+        testE.addToMap(new VehicleSpeed(testE));
+
+        for(String s: testE.listAddresses())
+        {
+            System.out.println(s);
+        }
+
+        testE.map.forEach((String,ECUSensor) -> System.out.println(ECUSensor.report()));
+    }
+}
