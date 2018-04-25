@@ -1,3 +1,4 @@
+
 /**
  *  Type of sensor that measures Engine speed. Initializes RPM to -1. Key address for ECUInitializer HashMap is "ES".
  *
@@ -5,13 +6,19 @@
  */
 public class EngineSpeed extends ECUSensor
 {
+    /**
+     * Represents the engine speed in rpm.
+     */
     public Integer rpm = -1;
+    /**
+     * Key for ECUInitializer's HashMap.
+     */
     public final String KEY = "ES";
 
     /**
      * Called by EngineSpeed constructor, adds this new object to the ECUInitializer's HashMap.
      *
-     * @param eI Reference to an ECUInitializer Object
+     * @param eI Reference to an ECUInitializer Object.
      */
     @Override
     public void addToMap(ECUInitializer eI)
@@ -21,6 +28,8 @@ public class EngineSpeed extends ECUSensor
 
     /**
      * Constructor should only be called with ECUInitializer Class, calls the addToMap method.
+     *
+     * @param eI Reference to an ECUInitializer Object.
      */
     public EngineSpeed(ECUInitializer eI)
     {
@@ -43,7 +52,7 @@ public class EngineSpeed extends ECUSensor
     }
 
     /**
-     * Getter method for the rpm field
+     * Getter method for the rpm field.
      *
      * @return  Measured engine speed in rpm, initially -1 range(0-16,384).
      */
@@ -56,7 +65,7 @@ public class EngineSpeed extends ECUSensor
      * All sensors are created and placed into a HashMap, accessible only through the ECUInitializer. Keys are String
      * objects unique to all sensors.
      *
-     * @return String key used to access correct object in ECUInitializer map
+     * @return String key used to access correct object in ECUInitializer map.
      */
     @Override
     public String getAddress()
@@ -67,7 +76,7 @@ public class EngineSpeed extends ECUSensor
     /**
      *  This method interprets the response received from the ECU and sets rpm field.
      *
-     * @param resp The full response from the ECU
+     * @param resp The full response from the ECU.
      * */
 
     public void response(byte[] resp)
