@@ -1,3 +1,4 @@
+
 /**
  *  Type of sensor that measures vehicle speed. Initializes kmh to 0. Key address for ECUInitializer HashMap is "VS".
  *
@@ -6,11 +7,21 @@
 
 public class VehicleSpeed extends ECUSensor
 {
+    /**
+     * Represents the speed the vehicle is moving in km/h.
+     */
     public Integer kmh = 0;
+    /**
+     * Key for ECUInitializer's HashMap.
+     */
     public final String KEY = "VS";
 
 
-
+    /**
+     * Called by VehicleSpeed constructor, adds this new object to the ECUInitializer's HashMap.
+     *
+     * @param eI Reference to an ECUInitializer Object.
+     */
     @Override
     public void addToMap(ECUInitializer eI)
     {
@@ -18,7 +29,9 @@ public class VehicleSpeed extends ECUSensor
     }
 
     /**
-     * Constructor should only be called with ECUInitializer Class.
+     * Constructor should only be called with ECUInitializer Class, calls the addToMap method.
+     *
+     * @param eI Reference to ECUInitializer object.
      */
     public VehicleSpeed(ECUInitializer eI)
     {
@@ -52,7 +65,7 @@ public class VehicleSpeed extends ECUSensor
      * All sensors are created and placed into a HashMap, accessible only through the ECUInitializer. Keys are String
      * objects unique to all sensors.
      *
-     * @return String key used to access correct object in ECUInitializer map
+     * @return String key used to access correct object in ECUInitializer map.
      */
     @Override
     public String getAddress()
@@ -63,7 +76,7 @@ public class VehicleSpeed extends ECUSensor
     /**
      *  This method interprets the response received from the ECU and sets the kmh field.
      *
-     * @param resp The full response from the ECU
+     * @param resp The full response from the ECU.
      * */
 
     public void response(byte[] resp)
@@ -74,3 +87,4 @@ public class VehicleSpeed extends ECUSensor
 
     }
 }
+
