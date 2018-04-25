@@ -1,6 +1,4 @@
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
+
 
 /**
  *  General class all sensors will inherit from.
@@ -30,7 +28,7 @@ public abstract class ECUSensor
      * following order the Data Size, Command/Response, and the Data bytes.
      *
      * @param mess Byte array containing the message to be written to the ECU
-     * @return
+     * @return Formatted message to be sent to the ECU
      */
     public byte[] write( byte[] mess) {
         byte[] writeMess = new byte[4 + mess.length];
@@ -62,6 +60,12 @@ public abstract class ECUSensor
      */
     public abstract String getAddress();
 
+    /**
+     * Returns a formatted response that removes duplicate information leaving only data.
+     *
+     * @param response Full response given by ECU
+     * @return Response without the initial, source, target and checksum bytes
+     */
     protected byte[] parsedResponse(byte[] response)
     {
         byte[] parsed = new byte[response.length - 4];
@@ -74,18 +78,5 @@ public abstract class ECUSensor
         return parsed;
     }
 
-    protected byte[] checkSum(byte[] builtMess)
-    {
-        byte sum = 0;
-
-        for(byte b: builtMess)
-        {
-            sum = (byte)(sum + b);
-        }
-        byte[] check = {(byte)((byte)sum & 0xFF)};
-
-
-        return check;
-    }
 
 }
