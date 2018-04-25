@@ -1,4 +1,7 @@
+
+
 import java.util.*;
+
 /**
  * The ECUInitializer builds an ArrayList of ECU objects
  *
@@ -6,7 +9,9 @@ import java.util.*;
  */
 public class ECUInitializer
 {
-
+    /**
+     *  HashMap holds all ECUSensor objects.
+     */
     Map<String,ECUSensor> map = new HashMap<>();
 
     /**
