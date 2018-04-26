@@ -1,1 +1,1 @@
-typeSearchIndex = [{"p":"<Unnamed>","l":"Driver"},{"p":"com.ezu","l":"ECUInitializer"},{"p":"com.ezu","l":"ECUSensor"},{"p":"com.ezu","l":"EngineSpeed"},{"p":"com.ezu","l":"VehicleSpeed"}]
+typeSearchIndex = [{"p":"com.ezu","l":"CoolantTemp"},{"p":"<Unnamed>","l":"Driver"},{"p":"com.ezu","l":"ECUInitializer"},{"p":"com.ezu","l":"ECUSensor"},{"p":"com.ezu","l":"EngineSpeed"},{"p":"com.ezu","l":"VehicleSpeed"}]
