@@ -1,3 +1,5 @@
+package com.ezu;
+import com.ezu.*;
 
 /**
  *  Type of sensor that measures vehicle speed. Initializes kmh to 0. Key address for ECUInitializer HashMap is "VS".
@@ -87,4 +89,3 @@ public class VehicleSpeed extends ECUSensor
 
     }
 }
-
