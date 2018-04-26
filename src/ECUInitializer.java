@@ -1,5 +1,6 @@
+package com.ezu;
 
-
+import com.ezu.*;
 import java.util.*;
 
 /**
@@ -12,7 +13,7 @@ public class ECUInitializer
     /**
      *  HashMap holds all ECUSensor objects.
      */
-    Map<String,ECUSensor> map = new HashMap<>();
+    public Map<String, ECUSensor> map = new HashMap<>();
 
     /**
      * Constructor automatically assigns all available sensors to map with their own unique key.
