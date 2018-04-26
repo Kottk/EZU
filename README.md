@@ -1,5 +1,5 @@
 # EZU
-What's it do?
+What does it do?
 
 This API intends to make interfacing with a vehicle's ECU easier to do. Once you have established connection with an ECU, building messages and interpreting responses can be handled by the classes contained in this API. In it's current form this API only works with a JDM ECU for Subaru WRX STI MY '99/'00.
 
