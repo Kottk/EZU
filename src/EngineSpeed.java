@@ -1,4 +1,5 @@
-
+package com.ezu;
+import com.ezu.*;
 /**
  *  Type of sensor that measures Engine speed. Initializes RPM to -1. Key address for ECUInitializer HashMap is "ES".
  *
@@ -18,12 +19,12 @@ public class EngineSpeed extends ECUSensor
     /**
      * Called by EngineSpeed constructor, adds this new object to the ECUInitializer's HashMap.
      *
-     * @param eI Reference to an ECUInitializer Object.
+     * @param eI Reference to an ECUInitalizer Object.
      */
     @Override
     public void addToMap(ECUInitializer eI)
     {
-       eI.map.put("1",this);
+        eI.map.put(KEY,this);
     }
 
     /**
