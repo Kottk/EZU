@@ -7,3 +7,6 @@ What doesn't it do?
 
 This API does not contain any tools that allow you to directly interface with an ECU. You will need to have the physical cable or BlueTooth unit to directly interface with your vehicle's ECU. You will also need to find a Serial Port communication API that you are comfortable using.
 
+Developers:
+Anthony Kottke and Sean Kirwan
+
