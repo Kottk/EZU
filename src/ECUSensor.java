@@ -1,5 +1,5 @@
-
-
+package com.ezu;
+import com.ezu.*;
 /**
  *  General class all sensors will inherit from.
  *
