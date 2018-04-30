@@ -10,3 +10,4 @@ This API does not contain any tools that allow you to directly interface with an
 Developers:
 Anthony Kottke and Sean Kirwan
 
+**WARNING: MESSING WITH YOUR ECU MAY VOID WARRANTY/BRICK YOUR SYSTEM! PROCEED CAREFULLY!**
