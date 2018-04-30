@@ -1,6 +1,5 @@
 package com.ezu;
 
-import com.ezu.*;
 import java.util.*;
 
 /**
@@ -23,6 +22,8 @@ public class ECUInitializer
         this.addToMap(new EngineSpeed(this));
         this.addToMap(new VehicleSpeed(this));
         this.addToMap(new CoolantTemp(this));
+        this.addToMap(new ManifoldPres(this));
+        this.addToMap(new IntakeTemp(this));
         System.out.println("ECU Map Initialized...");
 
     }
