@@ -1,5 +1,5 @@
 package com.ezu;
-import com.ezu.*;
+
 /**
  *  General class all sensors will inherit from.
  *
@@ -78,5 +78,11 @@ public abstract class ECUSensor
         return parsed;
     }
 
+    /**
+     * Method handles responses returned by the ecu and alters individual sensors.
+     * @param b
+     */
+
+    public abstract void response(byte[] b);
 
 }
