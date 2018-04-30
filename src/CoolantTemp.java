@@ -1,6 +1,5 @@
 package com.ezu;
 
-import com.ezu.*;
 /**
  *  Type of sensor that measures coolant temperature. Initializes degC to 0. Key address for ECUInitializer HashMap is "VS".
  *
@@ -84,7 +83,7 @@ public class CoolantTemp extends ECUSensor
     public void response(byte[] resp)
     {
         //Java reads bytes into integers without the 2's compliment rule, bitwise & function fixes
-        int prod = (resp[resp.length-2]&0xff)-(byte)40 ;
+        int prod = (resp[resp.length-2]&0xff)-(byte)0x28;
         degC =  prod;
 
     }
