@@ -5,75 +5,64 @@
  */
 package guidemo;
 import com.fazecast.jSerialComm.*;
+import java.util.*;
+import com.ezu.*;
+
 /**
  *
  * @author Sean
  */
 public class SSMdriver {
         static SerialPort comPort = SerialPort.getCommPorts()[1];
-    
+        ECUInitializer ecu = new ECUInitializer();  
+     
     public SSMdriver(int baudRate, int newDataBits, int stopBits, int pairity){
-        comPort.setComPortParameters(4800,8,1,0);
+        comPort.setComPortParameters(baudRate,newDataBits,stopBits,pairity);
     }
     
-    public static byte[] readPort(SerialPort comPort){
-        
-        
-        byte[] response = {};
-        
-        StringBuilder sb1 = new StringBuilder(); 
-        
-        try {
-            while (true)
-            {
-                while (comPort.bytesAvailable() == 0)
-                    Thread.sleep(20);
-
-                byte[] readBuffer = new byte[comPort.bytesAvailable()];
-                
-                int numRead = comPort.readBytes(readBuffer, readBuffer.length);
-                
-                System.out.println("Read " + numRead + " bytes.");
-                
-                for(byte b:readBuffer){
-                  sb1.append(String.format("%02X ", b));
-                }
-            }
-        } catch (Exception e) { e.printStackTrace(); }
-        
-        return response;
+    public byte[] readPort(SerialPort comPort){
+        byte[] test = new byte[0];
+      return test;
     }
     
     
-    public static void openPort(){
+    public void openPort(){
         comPort.openPort();
     }
-    public static void writePort(byte[] message){
+    public void writePort(byte[] message){
         comPort.writeBytes(message, message.length);
     }
-    public static void closePort(){
+    public void closePort(){
         comPort.closePort();
     }
-    public static void rpmMonitor(){
+    public int rpmMonitor(){
+            
+        int rpm = 0;
         
         
-        byte[] lowByte = {(byte)0x80, 0x10, (byte)0xF0, 0x08, (byte)0xA8, (byte)0x00, 0x00 ,0x00, 0x0E, 0x00, 0x00, 0x0F, 0x4D};
-        byte[] highByte = {(byte)0x80, 0x10, (byte)0xF0, 0x08, (byte)0xA8, (byte)0x00, 0x00 ,0x00, 0x0E, 0x00, 0x00, 0x0E, 0x4C};
+        return rpm;
+    }
+    public int vehicleSpeed(boolean isMetric){
         
-        byte[] lowByteResponse = new byte[2];
-        byte[] highByteResponse = new byte[2];
-        
-        
-        
-        writePort(lowByte);
-        lowByteResponse = readPort(comPort);
-        
-        
-        
-        writePort(highByte);
-        highByteResponse = readPort(comPort);
+        int speed = 0;
+        return speed;
+    }
+    public int boostPressure(){
+        return 0;
+    }
+    public int coolantTemp(){
+        return 0;
+    }
+    public int intakeTemp(){
+        return 0;
+    }
+    public void increaseRPM(){
         
     }
+    public void decreaseRPM(){
+        
+    }
+    
     
     
     
