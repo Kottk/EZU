@@ -1,5 +1,5 @@
 package com.ezu;
-import com.ezu.*;
+
 /**
  *  Type of sensor that measures Engine speed. Initializes RPM to -1. Key address for ECUInitializer HashMap is "ES".
  *
@@ -82,8 +82,8 @@ public class EngineSpeed extends ECUSensor
 
     public void response(byte[] resp)
     {
-        //Java reads bytes into integers without the 2's compliment rule, bitwise & function fixes
-        int prod = (resp[resp.length-2]&0xff) * (resp[resp.length - 3]&0xff) ;
+        //Java reads bytes into integers without the 2's complement rule, bitwise & function fixes
+        int prod = ((resp[resp.length-2]<<8) | (resp[resp.length - 3]&0xff)) ;
         rpm =  prod/4;
 
     }
