@@ -83,7 +83,7 @@ public class EngineSpeed extends ECUSensor
     public void response(byte[] resp)
     {
         //Java reads bytes into integers without the 2's complement rule, bitwise & function fixes
-        int prod = ((resp[resp.length-2]<<8) | (resp[resp.length - 3]&0xff)) ;
+        int prod = ((resp[resp.length-3]<<8) | (resp[resp.length - 2]&0xff)) ;
         rpm =  prod/4;
 
     }
