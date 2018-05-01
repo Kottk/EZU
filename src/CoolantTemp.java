@@ -82,9 +82,10 @@ public class CoolantTemp extends ECUSensor
 
     public void response(byte[] resp)
     {
+        int prod;
         //Java reads bytes into integers without the 2's compliment rule, bitwise & function fixes
-        int prod = (resp[resp.length-2]&0xff)-(byte)0x28;
-        degC =  prod;
+        prod = Math.abs(resp[resp.length-2]);
+        degC =  prod-40;
 
     }
 }
