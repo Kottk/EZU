@@ -13,17 +13,13 @@ import com.ezu.*;
  * @author Sean
  */
 public class SSMdriver {
-        static SerialPort comPort = SerialPort.getCommPorts()[1];
+        SerialPort comPort = SerialPort.getCommPort("COM3");
         ECUInitializer ecu = new ECUInitializer();  
      
     public SSMdriver(int baudRate, int newDataBits, int stopBits, int pairity){
         comPort.setComPortParameters(baudRate,newDataBits,stopBits,pairity);
     }
-    
-    public byte[] readPort(SerialPort comPort){
-        byte[] test = new byte[0];
-      return test;
-    }
+
     
     
     public void openPort(){
@@ -35,29 +31,127 @@ public class SSMdriver {
     public void closePort(){
         comPort.closePort();
     }
-    public int rpmMonitor(){
-            
-        int rpm = 0;
-        
-        
-        return rpm;
+
+
+    public String rpmMonitor() {
+        byte[] engineSpeed = {0x08, (byte) 0xA8, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x0F};
+        byte[] writeMess = ecu.map.get("ES").write(engineSpeed);
+
+
+        comPort.writeBytes(writeMess,writeMess.length);
+
+        try {
+                while (comPort.bytesAvailable() == 0)
+                    Thread.sleep(20);
+                {
+                    byte[] readBuffer = new byte[comPort.bytesAvailable()];
+
+                    int numRead = comPort.readBytes(readBuffer, readBuffer.length);
+
+                    System.out.println("Read " + numRead + " bytes.");
+                    ecu.map.get("ES").response(readBuffer);
+
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return ecu.map.get("ES").report();
     }
-    public int vehicleSpeed(boolean isMetric){
-        
-        int speed = 0;
-        return speed;
+    public String vehicleSpeed(boolean isMetric){
+            byte[] vSpeed = {0x05, (byte) 0xA8, 0x00, 0x00, 0x00, 0x10};
+            comPort.writeBytes(ecu.map.get("VS").write(vSpeed), ecu.map.get("VS").write(vSpeed).length);
+            if (isMetric) {
+            }
+            try {
+                    while (comPort.bytesAvailable() == 0)
+                        Thread.sleep(20);
+
+                    byte[] readBuffer = new byte[comPort.bytesAvailable()];
+
+                    int numRead = comPort.readBytes(readBuffer, readBuffer.length);
+
+                    System.out.println("Read " + numRead + " bytes.");
+
+                    ecu.map.get("VS").response(readBuffer);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+            return ecu.map.get("VS").report();
+        }
+    public String boostPressure() {
+        byte[] boost = {0x05, (byte) 0xA8, 0x00, 0x00, 0x00, 0x22};
+        comPort.writeBytes(ecu.map.get("MP").write(boost), ecu.map.get("MP").write(boost).length);
+
+        try {
+                while (comPort.bytesAvailable() == 0)
+                    Thread.sleep(20);
+
+                byte[] readBuffer = new byte[comPort.bytesAvailable()];
+
+                int numRead = comPort.readBytes(readBuffer, readBuffer.length);
+
+                System.out.println("Read " + numRead + " bytes.");
+
+                ecu.map.get("MP").response(readBuffer);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return ecu.map.get("MP").report();
     }
-    public int boostPressure(){
-        return 0;
+    public String coolantTemp() {
+        byte[] coolant = {0x05, (byte) 0xA8, 0x00, 0x00, 0x00, 0x08};
+        comPort.writeBytes(ecu.map.get("CT").write(coolant), ecu.map.get("CT").write(coolant).length);
+
+        while(true) {
+            try {
+                {
+                    while (comPort.bytesAvailable() == 0)
+                        Thread.sleep(20);
+
+                    byte[] readBuffer = new byte[comPort.bytesAvailable()];
+
+                    int numRead = comPort.readBytes(readBuffer, readBuffer.length);
+
+                    System.out.println("Read " + numRead + " bytes.");
+
+                    ecu.map.get("CT").response(readBuffer);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return ecu.map.get("CT").report();
+        }
     }
-    public int coolantTemp(){
-        return 0;
-    }
-    public int intakeTemp(){
-        return 0;
+    public String intakeTemp() {
+        byte[] intake = {0x05, (byte) 0xA8, 0x00, 0x00, 0x00, 0x12};
+        comPort.writeBytes(ecu.map.get("IT").write(intake), ecu.map.get("IT").write(intake).length);
+
+        try {
+            {
+                while (comPort.bytesAvailable() == 0)
+                    Thread.sleep(20);
+
+                byte[] readBuffer = new byte[comPort.bytesAvailable()];
+
+                int numRead = comPort.readBytes(readBuffer, readBuffer.length);
+
+                System.out.println("Read " + numRead + " bytes.");
+
+                ecu.map.get("IT").response(readBuffer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return ecu.map.get("IT").report();
+
     }
     public void increaseRPM(){
-        
+
     }
     public void decreaseRPM(){
         
