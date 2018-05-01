@@ -59,7 +59,7 @@ public class ManifoldPres extends ECUSensor
      */
     @Override
     public String report() {
-        return psi.toString();
+        return String.format("%.2f",psi);
     }
 
     /**
@@ -83,8 +83,9 @@ public class ManifoldPres extends ECUSensor
     public void response(byte[] resp)
     {
         //Java reads bytes into integers without the 2's compliment rule, bitwise & function fixes
-        double prod = (resp[resp.length-2]&0xff) * (byte)37 ;
-        psi =  prod/255;
+        double prod = (resp[resp.length-2]&0xff);
+
+        psi =  prod*37/255;
 
     }
 }
