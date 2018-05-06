@@ -7,8 +7,8 @@ How do I use it?
 
 *WRITING*
 
-Step one: Create an ECUInitializer object. The constructor takes no parameters
-.
+Step one: Create an ECUInitializer object. The constructor takes no parameters.
+
 Step two: If you do not know what the addresses are for the sensors once they are mapped, call ECUInitializer getAddresses method.
 
 Step three: For whichever sensor you wish to communicate with, call it through the ECUIntitializer(example: for EngineSpeed the call would be testECUInitializer.map.get("ES").write(**BYTE ARRAY OF DATA YOU WANT TO WRITE TO ECU**))
