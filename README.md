@@ -16,9 +16,9 @@ This API does not contain any tools that allow you to directly interface with an
 
 What is next?
 
-Adding the code for the rest of the sensors available.
-Possibly adding functionality for other programming languages (C++, Python etc.).
-Possibly adding functionality for other types of vehicles.
+- Adding the code for the rest of the sensors available.
+- Possibly adding functionality for other programming languages (C++, Python etc.).
+- Possibly adding functionality for other types of vehicles.
 
 Developers:
 Anthony Kottke and Sean Kirwan
